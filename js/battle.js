@@ -34,13 +34,6 @@ document.querySelector('.cpu .health').innerHTML = cpuHp;
 document.querySelector('.cpu img').src = cpuImage;
 
 
-document.querySelector(".game-button").innerHTML = "begin the battle";     // get image for cpu player
-//need to add event listener that calls a function...
-document.querySelector(".game-button").addEventListener("click", function() {
-    document.querySelector("p").style.color = "red";  //test
-});
-
-
 /*
     Deal with your "battle sequence" by:
         - Subtracting player attack damage from the CPU's health.
@@ -52,6 +45,31 @@ document.querySelector(".game-button").addEventListener("click", function() {
         - Save the updated game state (ie. player/cpu pokemon and health) to a cookie(s)
 */
     
+function battle() {
+    if(playerHp > 0 && cpuHp > 0) {
+        attackButton.style.color = "red";
+        cpuHp = cpuHp - playerAttack;
+        playerHp = playerHp - cpuAttack;
+        document.querySelector('.player .health').innerHTML = playerHp;
+        document.querySelector('.cpu .health').innerHTML = cpuHp;
+        let battlelog = document.querySelector('.battlelog');
+        battlelog.innerHTML += '<li>' + playerName + ' inflicted ' + playerAttack + ' points of damage, and ' 
+            + cpuName + ' inflicted ' + cpuAttack + ' points of damage.' + '</li>';
+        // battle();
+    }
+}
+
+let attackButton = document.querySelector(".game-button");
+attackButton.innerHTML = "attack";
+attackButton.addEventListener("click", function() {
+    battle();
+});
+
+let surrenderButton = document.querySelector('.surrender');
+surrenderButton.style.color = "green";
+surrenderButton.addEventListener('click', function() {
+    playerHp = 0;
+});
 
 
 /*

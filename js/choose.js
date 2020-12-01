@@ -17,7 +17,8 @@ function startGame(index) {
     //In the code for the game object below that James showed us, the name of the 1st key under player and cpu 
         //was pokemon, but that is the same name as the array so it was causing problems.
         //And the image key-value pair was missing (but the images still showed up on 
-        //battle.js because the cookie was storing the whole object as the value for the pokemon key).
+        //battle.js because the cookie was storing the whole object (in pokemon.js) 
+        //for the chosen pokemon in as the value for the pokemon key).
         //So I renamed the pokemon key to name and added the image key-value pair.
     const game = {
         player: {
