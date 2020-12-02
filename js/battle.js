@@ -44,23 +44,31 @@ document.querySelector('.cpu img').src = cpuImage;
         - Record the result in your "battlelog"
         - Save the updated game state (ie. player/cpu pokemon and health) to a cookie(s)
 */
-    
+
+let battlelog = document.querySelector('.battlelog');   
+
 function battle() {
     if(playerHp > 0 && cpuHp > 0) {
-        attackButton.style.color = "red";
         cpuHp = cpuHp - playerAttack;
         playerHp = playerHp - cpuAttack;
         document.querySelector('.player .health').innerHTML = playerHp;
         document.querySelector('.cpu .health').innerHTML = cpuHp;
-        let battlelog = document.querySelector('.battlelog');
         battlelog.innerHTML += '<li>' + playerName + ' inflicted ' + playerAttack + ' points of damage, and ' 
             + cpuName + ' inflicted ' + cpuAttack + ' points of damage.' + '</li>';
-        // battle();
+    // } else if(playerHp <= 0) {
+    //     need to add code here
+    // } else if(cpuHp <= 0) {
+    //     need to add code here
+    } else {    // (playerHp <= 0 && cpuHp <= 0)
+        battlelog.innerHTML += '<li>' + 'The battle resulted in a draw...  try negotiating next time.';
     }
 }
 
+//i'm going to move the attack button so it's above the battle log.
+    //Then the button won't move down the page when text is added.
 let attackButton = document.querySelector(".game-button");
 attackButton.innerHTML = "attack";
+attackButton.style.color = "red";
 attackButton.addEventListener("click", function() {
     battle();
 });
@@ -69,6 +77,7 @@ let surrenderButton = document.querySelector('.surrender');
 surrenderButton.style.color = "green";
 surrenderButton.addEventListener('click', function() {
     playerHp = 0;
+    document.querySelector('.player .health').innerHTML = playerHp;
 });
 
 
