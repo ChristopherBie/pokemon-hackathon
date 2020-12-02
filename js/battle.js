@@ -55,12 +55,18 @@ function battle() {
         document.querySelector('.cpu .health').innerHTML = cpuHp;
         battlelog.innerHTML += '<li>' + playerName + ' inflicted ' + playerAttack + ' points of damage, and ' 
             + cpuName + ' inflicted ' + cpuAttack + ' points of damage.' + '</li>';
-    // } else if(playerHp <= 0) {
-    //     need to add code here
-    // } else if(cpuHp <= 0) {
-    //     need to add code here
-    } else {    // (playerHp <= 0 && cpuHp <= 0)
-        battlelog.innerHTML += '<li>' + 'The battle resulted in a draw...  try negotiating next time.';
+        game.player = player;  //reversing what's at the top of battle.js
+        player.hp = playerHp;  //this variable changes so i'm saving it to the game object
+        game.cpu = cpu;  //reversing what's at the top of battle.js
+        cpu.hp = cpuHp;  //this variable changes so i'm saving it to the game object
+        Cookies.set("game", JSON.stringify(game));
+    }
+    if(playerHp <= 0 && cpuHp <= 0) {
+        battlelog.innerHTML += '<li>' + 'The battle resulted in a draw.' + '</li>';
+    } else if(cpuHp <= 0) {
+        battlelog.innerHTML += '<li>' + 'You won.' + '</li>';
+    } else if(playerHp <= 0) {
+        battlelog.innerHTML += '<li>' + 'You lost.' + '</li>';
     }
 }
 
